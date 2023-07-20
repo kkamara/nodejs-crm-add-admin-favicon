@@ -76,18 +76,18 @@ const refreshUser = async (id) => {
 const getUserById = async (id) => {
   let res = false;
   try {
-  const [result, metadata] = await db.query(
-    `SELECT uid, password, building_number, city, contact_number, 
-    created_at, email, email_reset_key, first_name, 
-    last_name, password, last_login, remember_token, street_name,
-    updated_at, username FROM users where users.uid=? LIMIT 1`, 
-    {
-        replacements: [ id, ],
-        type: QueryTypes.SELECT,
-    },
-  );
-  res = result;
-  return res;
+    const [result, metadata] = await db.query(
+      `SELECT uid, password, building_number, city, contact_number, 
+      created_at, email, email_reset_key, first_name, 
+      last_name, password, last_login, remember_token, street_name,
+      updated_at, username FROM users where users.uid=? LIMIT 1`, 
+      {
+          replacements: [ id, ],
+          type: QueryTypes.SELECT,
+      },
+    );
+    res = result;
+    return res;
   } catch(err) {
     return res;
   }
