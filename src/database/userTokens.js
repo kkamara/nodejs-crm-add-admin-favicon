@@ -3,6 +3,7 @@ const { DataTypes, } = require("sequelize");
 const { log, error, } = require('console');
 const sequelize = require('.');
 const { encrypt, } = require('../models/user');
+const { appKey, } = require('../config/index');
 
 const UserTokens = sequelize.define("users_tokens", {
   uid: {
@@ -30,19 +31,19 @@ sequelize.sync().then(async () => {
   log('UserTokens table created successfully!');
   UserTokens.create({
     users_id: 1,
-    token: encrypt('secret').hash,
+    token: encrypt(appKey).hash,
   })
   .then(() => { log('UserTokens created.'); })
   .catch(() => { log('Unable to create userTokens.'); });
   UserTokens.create({
     users_id: 2,
-    token: encrypt('secret').hash,
+    token: encrypt(appKey).hash,
   })
   .then(() => { log('UserTokens created.'); })
   .catch(() => { log('Unable to create userTokens.'); });
   UserTokens.create({
     users_id: 3,
-    token: encrypt('secret').hash,
+    token: encrypt(appKey).hash,
   })
   .then(() => { log('UserTokens created.'); })
   .catch(() => { log('Unable to create userTokens.'); });
