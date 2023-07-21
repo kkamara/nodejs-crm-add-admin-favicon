@@ -114,7 +114,7 @@ login.post('/', async (req, res) => {
   res.status(200);
   return res.json({ 
     routeName: session.page.title,
-    user: session, 
+    data: session, 
   });
 });
 
