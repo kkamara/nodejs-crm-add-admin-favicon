@@ -17,7 +17,7 @@ head
   meta(http-equiv='X-UA-Compatible' content='IE=edge')
   meta(name='viewport' content='width=device-width, initial-scale=1')
   // Main CSS
-  link(rel='stylesheet' type='text/css' href='css/main.css')
+  link(rel='stylesheet' type='text/css' href='/admin/css/main.css')
   // Font-icon css
   link(rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css')
 // Navbar
@@ -252,12 +252,13 @@ main.app-content
         h3.tile-title Support Requests
         .ratio.ratio-16x9.d-flex.justify-content-center
           canvas#supportRequestChart
+
 // Essential javascripts for application to work
-script(src='js/jquery-3.7.0.min.js')
-script(src='js/bootstrap.min.js')
-script(src='js/main.js')
+script(src='/admin/js/jquery-3.7.0.min.js')
+script(src='/admin/js/bootstrap.min.js')
+script(src='/admin/js/main.js')
 // Page specific javascripts
-script(type='text/javascript' src='js/plugins/chart.js')
+script(type='text/javascript' src='/admin/js/plugins/chart.js')
 script(type='text/javascript').
   const salesData = {
   type: "line",
@@ -313,3 +314,6 @@ script(type='text/javascript').
   ga('create', 'UA-72504830-1', 'auto');
   ga('send', 'pageview');
   }
+script(src='/js/axios.min.js')
+script(src='/js/crm.js')
+script(src='/admin/js/dashboard.js')
