@@ -54,8 +54,8 @@ const refreshUser = async (id) => {
   let res = false;
   try {
     const [results, metadata] = await db.query(
-      `UPDATE users SET updated_at=NOW()
-        WHERE uid = :id`, 
+      `UPDATE users SET updated_at=strftime('%Y-%m-%d %H-%M-%S', 'now')
+        WHERE users.uid = :id`, 
       {
             replacements: { id, },
             type: QueryTypes.UPDATE,
@@ -80,7 +80,7 @@ const getUserById = async (id) => {
       `SELECT uid, password, building_number, city, contact_number, 
       created_at, email, email_reset_key, first_name, 
       last_name, password, last_login, remember_token, street_name,
-      updated_at, username FROM users where users.uid=? LIMIT 1`, 
+      updated_at, username FROM users WHERE users.uid=? LIMIT 1`, 
       {
           replacements: [ id, ],
           type: QueryTypes.SELECT,
@@ -104,7 +104,7 @@ const getUser = async (email) => {
       `SELECT uid, password, password_salt, building_number, city, contact_number, 
     created_at, email, email_reset_key, first_name, 
     last_name, password, last_login, remember_token, street_name,
-    updated_at, username FROM users where users.email=? LIMIT 1`, 
+    updated_at, username FROM users WHERE users.email=? LIMIT 1`, 
     {
         replacements: [ email, ],
         type: QueryTypes.SELECT,
@@ -132,7 +132,7 @@ const getNewToken = async (id) => {
       `INSERT INTO users_tokens(
         users_id, token, created_at, updated_at
       ) VALUES(
-        ?, ?, NOW(), NOW()
+        ?, ?, strftime('%Y-%m-%d %H-%M-%S', 'now'), strftime('%Y-%m-%d %H-%M-%S', 'now')
       )`, 
       {
           replacements: [ id, result.hash, ],
