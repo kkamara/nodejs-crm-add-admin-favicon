@@ -94,6 +94,32 @@ const getUserById = async (id) => {
 };
 
 /**
+ * @param {string} token
+ * @return {object|false}
+ */
+const getUserByToken = async (token) => {
+  let res = false;
+  try {
+    const [result, metadata] = await db.query(
+      `SELECT users.uid, users.password, users.building_number, users.city, users.contact_number, 
+      users.created_at, users.email, users.email_reset_key, users.first_name, 
+      users.last_name, users.password, users.last_login, users.remember_token, users.street_name,
+      users.updated_at, users.username FROM users 
+      LEFT JOIN users_tokens ON users_tokens.users_id = users.uid
+      WHERE users_tokens.token=? LIMIT 1`, 
+      {
+          replacements: [ token, ],
+          type: QueryTypes.SELECT,
+      },
+    );
+    res = result;
+    return res;
+  } catch(err) {
+    return res;
+  }
+};
+
+/**
  * @param {string} email
  * @return {object|false}
  */
@@ -216,4 +242,5 @@ module.exports = {
   getNewToken,
   encrypt,
   compare,
+  getUserByToken,
 };

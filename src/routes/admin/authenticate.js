@@ -8,6 +8,7 @@ const {
   validateAuthenticate,
   authenticate: auth,
   getNewToken,
+  getUserByToken,
 } = require('../../models/user');
 
 const authenticate = express.Router();
@@ -21,9 +22,22 @@ authenticate.post('/', async (req, res) => {
     return res.json({ message: 'Unauthorized.' });
   }
 
-  req.session.page = { title: 'Admin Authenticate', };
-  req.session.auth = null;
+  const token = req.headers.authorization
+    .replace('Basic ', '');
+  try {
+    req.session.auth = await getUserByToken(token);
+    req.session.auth.token = token;
+    if (req.session.auth === false) {
+      res.status(401);
+      return res.json({ message: 'Unauthorized.' });
+    }
+  } catch (err) {
+    res.status(401);
+    return res.json({ message: 'Unauthorized.' });
+  }
 
+  req.session.page = { title: 'Admin Authenticate', };
+  
   await new Promise((resolve, reject) => {
     req.session.save(function(err) {
       if (err) {
@@ -35,6 +49,7 @@ authenticate.post('/', async (req, res) => {
   });
   
   const newSession = { page: req.session.page, auth: req.session.auth, };
+  newSession.auth.token = token;
   const session = deepClone(newSession);
   await new Promise((resolve, reject) => {
     req.session.destroy(function(err) {
@@ -48,7 +63,7 @@ authenticate.post('/', async (req, res) => {
   
   return res.json({ 
     message: 'Success',
-    data: null,
+    data: session,
   });
 });
 
