@@ -52,6 +52,8 @@ const compare = (plainText, hash, hashSalt) => {
 };
 ```
 
+See [authenticate-http.json](https://github.com/kkamara/nodejs-crm/blob/main/src/routes/admin/authenticate-http.json).
+
 ## Installation
 
 * [Node.js](https://nodejs.org/en/)
