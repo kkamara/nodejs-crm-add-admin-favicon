@@ -22,8 +22,8 @@ html
             | SIGN IN
           .mb-3
             label.form-label USERNAME
-            input.email.form-control.is-invalid(name='email', type='text', placeholder='Email', autofocus='')
-            div#validationEmail.invalid-feedback
+            input.email.form-control(name='email', type='text', placeholder='Email', autofocus='')
+            div#validationEmail.hide.invalid-feedback
               Please choose a username.
           .mb-3
             label.form-label PASSWORD

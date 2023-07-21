@@ -9,8 +9,30 @@ form.addEventListener('submit', async function(event) {
     res = await axios.post(domain+'/admin', {
       email, password,
     });
-    console.log(res.data);
+    data = res.data;
+    localStorage.setItem(
+      'auth',
+      data.data.auth.token,
+    );
+    window.location.href='/admin/dashboard';
   } catch(err) {
-    console.log(err.response.data.message, err.response.data.errors);
+    console.log(err.response.data.message);
+    document.querySelector('.email')
+      .classList
+      .add('is-invalid');
+    const validationEmail = document.querySelector('#validationEmail')
+    validationEmail.textContent = err.response.data.message;
+    validationEmail.classList
+      .remove('hide');
+    if (err.response.data.errors) {
+      console.log(err.response.data.errors);
+      document.querySelector('.email')
+        .classList
+        .add('is-invalid');
+      const validationEmail = document.querySelector('#validationEmail')
+      validationEmail.textContent = err.response.data.errors[0];
+      validationEmail.classList
+        .remove('hide');
+    }
   }
 });
