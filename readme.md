@@ -83,8 +83,8 @@ See [authenticate-http.json](https://github.com/kkamara/nodejs-crm/blob/main/src
 ###### Reload server on project files change
 
 ```bash
-  yarn dev # Runs Dev-script `nodemon yarn src/app.js`
-  # We can also `APP_ENV=development nodemon yarn src/app.js`.
+  yarn dev # Runs Dev-script `yarn nodemon src/app.js`
+  # We can also `APP_ENV=development yarn nodemon src/app.js`.
 ```
 
 
