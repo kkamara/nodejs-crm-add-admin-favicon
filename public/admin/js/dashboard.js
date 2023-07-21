@@ -16,7 +16,7 @@ const run = async () => {
         },
       },
     );
-    data = res.data;
+    const data = res.data;
     console.log(data);
   } catch (err) {
     let message = err.message;
