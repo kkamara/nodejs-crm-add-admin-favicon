@@ -38,7 +38,14 @@ dashboard.get('/', async (req, res) => {
     });
   });
   
-  return res.render('admin/dashboard.pug');
+  return res.render(
+    'admin/dashboard.pug',
+    {
+      config,
+      title: session.page.title,
+      session,
+    }
+  );
 });
 
 module.exports = dashboard;
